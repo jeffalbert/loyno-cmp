@@ -10,12 +10,12 @@ filename => buffer.read;
 
 1.0 => buffer.rate;
 
-//buffer.samples() => buffer.pos;
+42314 => buffer.pos;
 
-//1 => buffer.loop;
+1 => buffer.loop;
 
 //advance time
 
-buffer.length() => now;
+//buffer.length() => now;
 
-//1::hour => now;
+1::hour => now;
