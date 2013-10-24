@@ -5,6 +5,9 @@ KBHit kb;
 // patch
 SndBuf b => dac;
 
+//turn looping on
+1 => b.loop;
+
 // time-loop
 while( true )
 {
@@ -15,6 +18,8 @@ while( true )
     
     filename => b.read;
     
-    Std.mtof((kb.getchar())-100) => b.rate;
+    ((kb.getchar())-100) => b.rate;
+    
+    <<< b.rate() >>>;
     
 }
