@@ -17,7 +17,11 @@ if( !hi.openJoystick( device ) ) me.exit();
 <<< "joystick '" + hi.name() + "' ready", "" >>>;
 
 // patch
-SndBuf b => dac;
+SndBuf b => LPF l => dac;
+
+ b => Gain g => dac;
+
+100 => int paul;
 
 //turn looping on
 1 => b.loop;
@@ -40,19 +44,36 @@ SndBuf b => dac;
             {
                 <<< "joystick axis", msg.which, ":", msg.axisPosition >>>;
                 
-                msg.axisPosition => b.rate;
+                if ( msg.which > 1)
+                {
+                msg.axisPosition * 10 => b.rate;
+                }
+                else if ( msg.which < 2)
+                {
+                    (msg.axisPosition * msg.axisPosition * 20000) + paul => l.freq;
+                }
             }
             
             // joystick button down
             else if( msg.isButtonDown() )
             {
                 <<< "joystick button", msg.which, "down" >>>;
+                
+                1 => l.gain;
+                
+                0 => g.gain;
+               
             }
             
             // joystick button up
             else if( msg.isButtonUp() )
             {
                 <<< "joystick button", msg.which, "up" >>>;
+               
+               0 => l.gain;
+               
+               1 => g.gain;
+               
             }
             
             // joystick hat/POV switch/d-pad motion
