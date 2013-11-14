@@ -39,11 +39,11 @@ while( true )
     while( min.recv(msg) )
     {
 
-    if (msg.data1 == 144 && msg.data2 == 36)
+    while (msg.data1 == 144 && msg.data2 == 36)
         {
         1 => a.rate;
         -1 => b.rate;
-        a.length() => now;
+        10::samp => now;
     }
     
 }
